@@ -41,10 +41,10 @@ class RestHost(Host):
 
 		#simulate time
 		for t in range(0,  self.intervals):
-			# self.logMsg("Simulating @ "+dt.fromtimestamp(self.currentTime).strftime('%Y-%m-%d %H:%M:%S'))
+			self.logMsg("Simulating @ "+dt.fromtimestamp(self.currentTime).strftime('%Y-%m-%d %H:%M:%S'))
 			self.timeTick(self.currentTime)
 			self.currentTime = self.currentTime + self.timeBase
-			tm.sleep(1)
+			tm.sleep(0.25)
 
 		#do a soft shutdown
 		self.shutdown()
