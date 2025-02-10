@@ -20,6 +20,8 @@ class SolarPanelDev(CurtDev):
 
 		self.devtype = "Curtailable"
 		self.sun = sun
+  
+		self.onOffDevice = True
 
 		# params
 		self.size = 1.6*12					# Solar panel array in m2
@@ -98,7 +100,7 @@ class SolarPanelDev(CurtDev):
 		else:
 			production = self.sun.powerOnPlane(self.inclination, self.azimuth, time)
 
-		return -1 * production * (self.efficiency/100.0) * self.size
+		return -1 * production * (self.efficiency/100.0) * self.size * int(self.onOffDevice)
 
 	def readValue(self, time, filename=None, timeBase=None):
 		return self.calculateProduction(time)

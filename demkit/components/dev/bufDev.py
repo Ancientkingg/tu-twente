@@ -400,7 +400,6 @@ class BufDev(Device):
 					target[c] = complex(max(self.congestionPoint.getLowerLimit(c).real, min(target[c].real, self.congestionPoint.getUpperLimit(c).real)),
 										max(self.congestionPoint.getLowerLimit(c).imag, min(target[c].imag, self.congestionPoint.getUpperLimit(c).imag)))
 			self.lockState.acquire()
-			
 		# No control, but a congestionpoint
 		elif self.congestionPoint is not None:
 			self.lockState.acquire()

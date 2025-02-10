@@ -228,7 +228,9 @@ class Core:
 			if hasattr(o, var):
 				v = getattr(o, var)
 				try:
-					if isinstance(v, int):
+					if isinstance(v, bool):
+						setattr(o, var, bool(val))
+					elif isinstance(v, int):
 						setattr(o, var, int(val))
 					elif isinstance(v, float):
 						setattr(o, var, float(val))

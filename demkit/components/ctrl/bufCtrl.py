@@ -51,7 +51,7 @@ class BufCtrl(DevCtrl):
 		if self.useEventControl:
 			if time >= self.nextPlan:
 				self.requestIncentive()
-				
+
 			#Check how much we deviate from the SoC and if required spawn an event to replan:
 			elif time%self.timeBase == 0 and time in self.plannedSoC:
 				# Synchronize the device state:

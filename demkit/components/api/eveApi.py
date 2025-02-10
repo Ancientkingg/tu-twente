@@ -133,6 +133,7 @@ class EveApi:
         # set variables
         @self.app.route("/set/<entity>/<var>/<val>")
         def setvar(entity, var, val):
+            print("Setting var", entity, var, val)
             answer = self.host.setVar(entity, var, val)
             if not answer:
                 return json.dumps("error")
