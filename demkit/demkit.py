@@ -89,8 +89,8 @@ if(len(sys.argv) > 1):
 			demCfg['env']['path'] += '/'
 		if demCfg['workspace']['path'][-1] != '\\' and demCfg['workspace']['path'][-1] != '/':
 			demCfg['workspace']['path'] += '/'
-	except:
-		sys.stderr.write("Errors occurred when loading the configuration file. Make sure to have a proper conf/usrconf.py file! Please refer to the provided exanple.\n")
+	except Exception as e:
+		sys.stderr.write("Errors occurred when loading the configuration file. Make sure to have a proper conf/usrconf.py file! Please refer to the provided exanple.\n", e)
 		sys.stderr.flush()
 		exit()
 

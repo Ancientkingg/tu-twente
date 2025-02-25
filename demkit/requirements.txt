@@ -16,3 +16,6 @@ scikit-learn
 scipy
 zmq
 waitress
+pymysql
+joblib
+openpyxl
