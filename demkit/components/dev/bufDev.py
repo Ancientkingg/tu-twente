@@ -29,6 +29,8 @@ class BufDev(Device):
 		self.initialSoC = 6000 #in Wh
 		self.soc = self.initialSoC #state of charge
 
+		self.targetSoC = None
+
 		self.prevConsumption = 0.0
 		
 		#define 2 entries for a continuous range
@@ -393,7 +395,12 @@ class BufDev(Device):
 				except:
 					pass
 
-		if self.smartOperation and self.parent is not None:
+		if self.targetSoC is not None:
+			self.targetSoC = min(self.capacity, max(0, self.targetSoC))
+			for c in self.commodities:
+				target[c] = ((int(self.targetSoC) - self.soc)*(3600/self.timeBase) + load[c] - self.consumption[c]).real
+
+		elif self.smartOperation and self.parent is not None:
 			for c in self.commodities:
 				target[c] = self.zCall(self.parent, 'getPlan', self.host.time(), c)
 				if self.congestionPoint is not None:
@@ -430,6 +437,7 @@ class BufDev(Device):
 
 		# Now set the power, obeying the limits of the device
 		consumption = {}
+		print(target, load, self.soc)
 		for c in self.commodities:
 			consumption[c] = self.consumption[c] + (target[c] - load[c])
 
