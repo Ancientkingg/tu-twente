@@ -17,12 +17,13 @@ from dev.device import Device
 
 import util.helpers
 import math
+import datetime
 
-class TsDev(Device):	
+class TsDev(Device):
 	def __init__(self,  name,  host):
 		Device.__init__(self,  name,  host)
 		self.devtype = "Timeshiftable"
-		
+
 		#params
 		#Washing machine profile by default, minute intervals!
 		self.profile = [ complex(66.229735, 77.4311402954),complex(119.35574, 409.21968),complex(162.44595, 516.545199388),complex(154.744551, 510.671236335),
@@ -43,7 +44,7 @@ class TsDev(Device):
 						 complex(99.930348, 356.366544701),complex(151.759998, 358.315027653),complex(286.652289, 300.697988258),complex(292.921008, 266.244164873),
 						 complex(300.5829, 265.089200586),complex(296.20425, 261.22759426),complex(195.74251, 216.883021899),complex(100.34136, 260.038063655),
 						 complex(312.36975, 275.4842252),complex(287.90921, 261.688800332),complex(85.442292, 140.349851956),complex(44.8647, 109.208529515)]
-		
+
 		self.currentJobIdx = -1
 		self.currentJob = {}
 		self.available = False
@@ -80,7 +81,7 @@ class TsDev(Device):
 		self.commodity = self.commodities[0]
 
 		if self.host.timeBase != self.timeBase:
-			self.profile= util.helpers.interpolatetb(self.profile, self.timeBase, self.host.timeBase)
+			self.profile = util.helpers.interpolatetb(self.profile, self.timeBase, self.host.timeBase)
 			self.timeBase = self.host.timeBase
 
 		self.lockState.release()
@@ -98,7 +99,8 @@ class TsDev(Device):
 			assert(self.host.timeBase % self.timeBase == 0)
 			self.jobProgress += math.ceil(self.host.timeBase / self.timeBase)
 			self.jobProgress = min(self.jobProgress, len(self.profile))
-		
+
+
 		#now check if we need to update the state
 		if not self.available:
 			if self.currentJobIdx+1 < len(self.jobs):
@@ -108,10 +110,12 @@ class TsDev(Device):
 					self.currentJob = self.jobs[self.currentJobIdx][1]
 					self.jobProgress = 0
 
+					self.logMsg("New job started at " + str(datetime.datetime.fromtimestamp(self.currentJob['startTime'])))
+
 					self.available = True
 
 					self.timeTillDeadline = self.currentJob['endTime'] - self.currentJob['startTime']
-					
+
 					#new job has to start, lets request a planning for it!
 					if self.smartOperation and self.controller is not None:
 						self.lockState.release()
@@ -216,20 +220,28 @@ class TsDev(Device):
 	def addJob(self, startTime, endTime):
 		self.lockState.acquire()
 		errorFlag = False
+		errorMsg = ""
 
 		startTime -= self.timeOffset
 		endTime -= self.timeOffset
 
 		j = {}
 		assert(startTime < endTime)
-		assert(endTime >= startTime + len(self.profile)*self.timeBase)
+		# assert(endTime >= startTime + len(self.profile)*self.timeBase)
+
+
+		if endTime < startTime + len(self.profile) * self.timeBase:
+			errorFlag = True
+			errorMsg = f"Minimum job length of {len(self.profile)*self.timeBase} not met! Not adding job."
+			self.logWarning(errorMsg)
 
 		j['startTime'] = startTime
 		j['endTime'] = min(endTime,  startTime + 24*3600)
 
 		if len(self.jobs) > 0 and j['startTime'] <= self.jobs[-1][1]['endTime']:
 			errorFlag = True
-			self.logError("Inconsistent job specification!")
+			errorMsg = "Job overlaps with previous job! Not adding job."
+			self.logWarning(errorMsg)
 
 		job = (len(self.jobs),  dict(j))
 
@@ -237,6 +249,53 @@ class TsDev(Device):
 			self.jobs.append(job)
 
 		self.lockState.release()
+
+		return (not errorFlag, errorMsg)
+
+	def scheduleJob(self, timeOffset: int, jobLength: int):
+		startTime = self.host.time() + timeOffset + self.timeOffset
+		endTime = startTime + jobLength
+
+		startTimeDate = datetime.datetime.fromtimestamp(startTime - self.timeOffset)
+		endTimeDate = datetime.datetime.fromtimestamp(endTime - self.timeOffset)
+
+		successFlag, msg = self.addJob(startTime, endTime)
+
+		if successFlag:
+			msg = "Scheduling job from " + str(startTimeDate) + " to " + str(endTimeDate)
+			self.logMsg(msg)
+			return (True, msg)
+		else:
+			self.logWarning("Failed to schedule job from " + str(startTimeDate) + " to " + str(endTimeDate))
+			return (False, msg)
+
+	def cancelJob(self, idx: int):
+		msg = ""
+		errorFlag = False
+		self.logMsg(f"Cancelling job {idx}")
+		self.lockState.acquire()
+		if len(self.jobs) == 0:
+			msg = "No jobs scheduled!"
+			self.logWarning(msg)
+			errorFlag = True
+
+		if len(self.jobs) > 0 and idx < len(self.jobs):
+			self.jobs.pop(idx)
+		else:
+			msg = "Job not found!"
+			self.logWarning(msg)
+			errorFlag = True
+
+		self.lockState.release()
+
+		return (not errorFlag, msg)
+
+	def forceShutdown(self):
+		self.lockState.acquire()
+		self.available = False
+		self.jobProgress = 0
+		self.lockState.release()
+		return True
 
 	#Device specific helpers:
 	def getProfile(self, timeBase):

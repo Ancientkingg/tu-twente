@@ -268,8 +268,12 @@ class Core:
 			o = self
 		if o != None:
 			try:
+				# convert args to a tuple
+				args = tuple(*args)
 				return getattr(o, func)(*args)
-			except:
+			except Exception as e:
+				self.logWarning("Could not call function: "+func)
+				self.logWarning("Error: "+str(e))
 				return None
 		else:
 			return None

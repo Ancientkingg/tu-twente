@@ -103,6 +103,10 @@ class EveApi:
 
     ### API INTERFACE FROM HERE ON ###
     def addRoutes(self):
+        
+        @self.app.route("/time")
+        def gettime():
+            return json.dumps(self.host.time())
 
         @self.app.route("/list")
         def listentities():

@@ -218,6 +218,9 @@ class ZoneDev2R2C(ThermalDevice):
 	# E.G. this is used by a thermostat device to read the current temperature and see if heating is required
 	def getProperties(self):
 		r = ThermalDevice.getProperties(self) 	# Get the properties of the overall Device class, which already includes global properties
+		self.lockState.acquire()
+		r['valveHeat'] = self.valveHeat
+		self.lockState.release()
 		return r
 
 ##### PREDICTIONS

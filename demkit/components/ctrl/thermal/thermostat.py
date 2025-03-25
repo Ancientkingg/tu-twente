@@ -283,3 +283,13 @@ class Thermostat(ThermalDevCtrl):
 				time += self.timeBase
 
 		return result
+
+	def getProperties(self):
+		# Get the properties of this device
+		r = dict()
+
+		# Populate the result dict
+		r['min_target_temp'] = self.temperatureSetpointHeating
+		r['max_target_temp'] = self.temperatureSetpointCooling
+
+		return r

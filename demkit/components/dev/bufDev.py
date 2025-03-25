@@ -349,6 +349,7 @@ class BufDev(Device):
 		r['chargingEfficiency'] = self.chargingEfficiency
 		r['discrete'] = self.discrete
 		r['useInefficiency'] = self.useInefficiency
+		r['targetSoC'] = self.targetSoC
 
 		r['restrictedCapacity'] = self.restrictedCapacity
 		r['restrictedChargingPowers'] = self.restrictedChargingPowers
@@ -396,9 +397,9 @@ class BufDev(Device):
 					pass
 
 		if self.targetSoC is not None:
-			self.targetSoC = min(self.capacity, max(0, self.targetSoC))
+			self.targetSoC = min(self.capacity, max(0, int(self.targetSoC)))
 			for c in self.commodities:
-				target[c] = ((int(self.targetSoC) - self.soc)*(3600/self.timeBase) + load[c] - self.consumption[c]).real
+				target[c] = ((self.targetSoC - self.soc)*(3600/self.timeBase) + load[c] - self.consumption[c]).real
 
 		elif self.smartOperation and self.parent is not None:
 			for c in self.commodities:
@@ -437,7 +438,6 @@ class BufDev(Device):
 
 		# Now set the power, obeying the limits of the device
 		consumption = {}
-		print(target, load, self.soc)
 		for c in self.commodities:
 			consumption[c] = self.consumption[c] + (target[c] - load[c])
 
