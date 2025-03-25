@@ -1,0 +1,24 @@
+networks:
+  demkit_network:
+    external: true
+
+services:
+  demkit:
+    container_name: demkit
+    image: demkit:latest
+    networks:
+      - demkit_network
+    volumes:
+      # for UNIX
+      - "./workspace:/app/workspace"
+      - "./demkit/components:/app/demkit/components"
+      # for windows use absolute path
+    ports:
+      - "5000:5000"
+    environment:
+      - DEMKIT_FOLDER=example
+      - DEMKIT_MODEL=demohouse_composed
+      - DEMKIT_COMPONENTS=/app/demkit/components/
+      - DEMKIT_INFLUXURL=http://demkit_influxdb
+      - DEMKIT_INFLUXPORT=8086
+      - DEMKIT_INFLUXDB=dem
