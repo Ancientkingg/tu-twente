@@ -26,6 +26,8 @@ from eve import Eve
 from threading import Thread
 from flask import jsonify, request, abort, make_response, Response
 import json
+from demkit.conf.usrconf import demCfg
+
 
 from demkit.components.dev.haDev import HADev
 from demkit.components.dev.meterDev import MeterDev
@@ -109,10 +111,11 @@ class EveApi:
             return json.dumps(list(map(lambda x: x.name, self.host.entities)))
 
         @self.app.route("/entity", methods=['POST'])
-        def addDevice():
+        def addEntity():
             data = json.loads(request.data.decode("utf-8"))
             haEntity = data['entity_id']
-            dev = HADev(f"HALoad-{haEntity}", self.host, 'http://localhost:8080/', f'entity/{haEntity}/consumption')
+            baseURL = demCfg['coreURL']
+            dev = HADev(f"HALoad-{haEntity}", self.host, baseURL, f'entity/{haEntity}/consumption')
             dev.startup()
 
             for meter in self.host.meters:

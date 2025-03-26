@@ -83,8 +83,7 @@ demCfg['network']['sockPath'] = 'ipc:///home/user/python/'			#linux
 demCfg['smarthouse'] = {}
 demCfg['smarthouse']['usb'] = '/dev/ttyACM0'
 
-
-
+demCfg['coreURL'] = str(os.environ['DEMKIT_COREURL'])
 
 # STATIC SETTINGS
 # You should not modify lines below
