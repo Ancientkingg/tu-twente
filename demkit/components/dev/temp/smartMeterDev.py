@@ -13,7 +13,7 @@
 # limitations under the License.
 
 
-from dev.meterDev import MeterDev
+from demkit.components.dev.meterDev import MeterDev
 
 import numpy as np
 import util.helpers

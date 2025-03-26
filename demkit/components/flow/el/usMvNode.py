@@ -13,7 +13,7 @@
 # limitations under the License.
 
 
-from flow.el.elNode import ElNode
+from demkit.components.flow.el.elNode import ElNode
 
 # United states MV ndoe that supports connections to three/single phase MV cables
 class UsMvNode(ElNode):

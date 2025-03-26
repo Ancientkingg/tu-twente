@@ -13,7 +13,7 @@
 # limitations under the License.
 
 
-from ctrl.loadCtrl import LoadCtrl
+from demkit.components.ctrl.loadCtrl import LoadCtrl
 import util.helpers
 import copy
 

@@ -14,7 +14,7 @@
 
 
 from util.clientCsvReader import ClientCsvReader
-from dev.thermal.thermalDev import ThermalDevice
+from demkit.components.dev.thermal.thermalDev import ThermalDevice
 from util.windowPredictor import WindowPredictor
 
 # Model for a temperature zone

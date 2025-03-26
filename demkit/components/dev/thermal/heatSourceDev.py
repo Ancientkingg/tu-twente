@@ -13,7 +13,7 @@
 # limitations under the License.
 
 
-from dev.thermal.thermalDev import ThermalDevice
+from demkit.components.dev.thermal.thermalDev import ThermalDevice
 
 # Model to
 class HeatSourceDev(ThermalDevice):

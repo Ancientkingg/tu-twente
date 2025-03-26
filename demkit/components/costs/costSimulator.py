@@ -13,7 +13,7 @@
 # limitations under the License.
 
 
-from costs.costEntity import CostEntity
+from demkit.components.costs.costEntity import CostEntity
 
 class CostSimulator(CostEntity):
 	def __init__(self,  name,  host):

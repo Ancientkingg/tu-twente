@@ -14,7 +14,7 @@
 
 
 from core.core import Core
-from usrconf import demCfg
+from demkit.conf.usrconf import demCfg
 from util.persistence import Persistence
 import sys
 

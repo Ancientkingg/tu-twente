@@ -14,10 +14,10 @@
 
 
 
-from ctrl.auction.demandFunction import DemandFunction
+from demkit.components.ctrl.auction.demandFunction import DemandFunction
 
-from ctrl.groupCtrl import GroupCtrl
-from ctrl.auction.aggregatorCtrl import AggregatorCtrl
+from demkit.components.ctrl.groupCtrl import GroupCtrl
+from demkit.components.ctrl.auction.aggregatorCtrl import AggregatorCtrl
 
 import math
 

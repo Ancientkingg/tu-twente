@@ -19,7 +19,7 @@
 
 
 # Each device inherits from the Device class
-from dev.device import Device
+from demkit.components.dev.device import Device
 
 # Classname, convention to name it a SomeDeviceDev. By default inherits from the Device class
 class <device_name>Dev(Device):

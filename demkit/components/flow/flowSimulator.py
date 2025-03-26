@@ -14,7 +14,7 @@
 
 
 
-from flow.flowEntity import FlowEntity
+from demkit.components.flow.flowEntity import FlowEntity
 
 class FlowSimulator(FlowEntity):
 	def __init__(self,  name,  host):

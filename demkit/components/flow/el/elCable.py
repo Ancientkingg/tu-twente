@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from flow.edge import Edge
+from demkit.components.flow.edge import Edge
 
 class ElCable(Edge):
 	def __init__(self,  name,  flowSim, nodeFrom, nodeTo, host):

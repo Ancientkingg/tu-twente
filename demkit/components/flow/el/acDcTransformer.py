@@ -12,9 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from flow.el.elNode import ElNode
-from flow.el.lvCable import LvCable
-from flow.el.lvNode import LvNode
+from demkit.components.flow.el.elNode import ElNode
+from demkit.components.flow.el.lvCable import LvCable
+from demkit.components.flow.el.lvNode import LvNode
 
 import math
 

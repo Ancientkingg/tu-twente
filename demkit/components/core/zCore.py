@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from usrconf import demCfg
+from demkit.conf.usrconf import demCfg
 from core.core import Core
 
 import time

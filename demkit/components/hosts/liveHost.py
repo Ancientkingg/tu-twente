@@ -13,7 +13,7 @@
 # limitations under the License.
 
 
-from hosts.host import Host
+from demkit.components.hosts.host import Host
 import time as tm
 
 class LiveHost(Host):

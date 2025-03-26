@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from ctrl.auction.devAuctionCtrl import DevAuctionCtrl
+from demkit.components.ctrl.auction.devAuctionCtrl import DevAuctionCtrl
 
 import math
 

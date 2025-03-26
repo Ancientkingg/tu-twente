@@ -13,8 +13,8 @@
 # limitations under the License.
 
 
-from ctrl.thermal.thermalOptCtrl import ThermalOptCtrl
-from ctrl.devCtrl import DevCtrl
+from demkit.components.ctrl.thermal.thermalOptCtrl import ThermalOptCtrl
+from demkit.components.ctrl.devCtrl import DevCtrl
 
 # Thermal device controller basis
 # For now identical to the normal device controller.

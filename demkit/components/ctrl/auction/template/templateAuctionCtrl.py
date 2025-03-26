@@ -19,8 +19,8 @@
 # Furthermore, some code that should be included by default is given
 
 # Mandatory import statemenet
-from ctrl.auction.demandFunction import DemandFunction
-from ctrl.auction.devAuctionCtrl import DevAuctionCtrl
+from demkit.components.ctrl.auction.demandFunction import DemandFunction
+from demkit.components.ctrl.auction.devAuctionCtrl import DevAuctionCtrl
 
 # Give your controller a name, use the following convention:
 class <controller_name>AuctionCtrl(DevAuctionCtrl): # Inherits by default from the DevAuctionCtrl

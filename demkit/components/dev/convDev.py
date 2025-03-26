@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from dev.device import Device
+from demkit.components.dev.device import Device
 
 # FIXME: For now, this device is a dummy to test basic functionality for optimization ofy hybrid systems using Profile Steering
 

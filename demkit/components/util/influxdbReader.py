@@ -15,8 +15,8 @@
 
 import requests
 
-from util.reader import Reader
-from usrconf import demCfg
+from demkit.components.util.reader import Reader
+from demkit.conf.usrconf import demCfg
 
 class InfluxDBReader(Reader):
 	def __init__(self, measurement, address=None, port=None, database=None, timeBase=60, aggregation='mean', offset=None, raw=False, value="W-power.real.c.ELECTRICITY", tags={}, host=None):

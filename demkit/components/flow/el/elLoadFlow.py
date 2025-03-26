@@ -17,8 +17,8 @@ import numpy as np
 import os
 import math
 
-from flow.flowSimulator import FlowSimulator
-from flow.el.mvLvTransformer import MvLvTransformer
+from demkit.components.flow.flowSimulator import FlowSimulator
+from demkit.components.flow.el.mvLvTransformer import MvLvTransformer
 
 class ElLoadFlow(FlowSimulator):
 	def __init__(self,  name,  host):

@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from dev.loadDev import LoadDev
-from dev.device import Device
+from demkit.components.dev.loadDev import LoadDev
+from demkit.components.dev.device import Device
 import math
 from datetime import datetime
 from util.influxdbReader import InfluxDBReader

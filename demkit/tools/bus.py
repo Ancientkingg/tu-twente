@@ -23,7 +23,7 @@ import time
 import threading
 
 sys.path.insert(0, '../conf')
-from usrconf import demCfg
+from demkit.conf.usrconf import demCfg
 
 context = zmq.Context()
 

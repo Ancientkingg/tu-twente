@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from dev.curtDev import CurtDev
+from demkit.components.dev.curtDev import CurtDev
 from pyModbusTCP.client import ModbusClient
 import pandas as pd
 import time

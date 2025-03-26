@@ -13,7 +13,7 @@
 # limitations under the License.
 
 
-from ctrl.optCtrl import OptCtrl
+from demkit.components.ctrl.optCtrl import OptCtrl
 
 #MultiCommodity optimization basis.
 #Note, wherever you find a c-index, the c is for commodity

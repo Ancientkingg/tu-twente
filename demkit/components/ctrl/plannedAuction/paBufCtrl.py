@@ -14,8 +14,8 @@
 
 
 
-from ctrl.bufCtrl import BufCtrl
-from ctrl.auction.bufAuctionCtrl import BufAuctionCtrl
+from demkit.components.ctrl.bufCtrl import BufCtrl
+from demkit.components.ctrl.auction.bufAuctionCtrl import BufAuctionCtrl
 
 # TimeShiftable controller
 class PaBufCtrl(BufCtrl, BufAuctionCtrl):

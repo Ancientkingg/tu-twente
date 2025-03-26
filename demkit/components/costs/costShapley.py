@@ -13,7 +13,7 @@
 # limitations under the License.
 
 
-from costs.costSimulator import CostSimulator
+from demkit.components.costs.costSimulator import CostSimulator
 
 class CostShapley(CostSimulator):
 	def __init__(self,  name,  host):

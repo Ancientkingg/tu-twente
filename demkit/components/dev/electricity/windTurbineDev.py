@@ -13,7 +13,7 @@
 # limitations under the License.
 
 
-from dev.curtDev import CurtDev
+from demkit.components.dev.curtDev import CurtDev
 
 class WindTurbineDev(CurtDev):
 	def __init__(self,  name,  host, wind):

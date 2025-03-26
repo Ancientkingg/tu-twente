@@ -13,8 +13,8 @@
 # limitations under the License.
 
 
-from dev.bufDev import BufDev
-from dev.device import Device
+from demkit.components.dev.bufDev import BufDev
+from demkit.components.dev.device import Device
 
 import math
 import copy

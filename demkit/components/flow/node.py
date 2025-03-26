@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from flow.flowEntity import FlowEntity
+from demkit.components.flow.flowEntity import FlowEntity
 
 class Node(FlowEntity):
     def __init__(self,  name,  flowSim, host):

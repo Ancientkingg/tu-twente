@@ -13,7 +13,7 @@
 # limitations under the License.
 
 
-from dev.bufDev import BufDev
+from demkit.components.dev.bufDev import BufDev
 
 import math
 

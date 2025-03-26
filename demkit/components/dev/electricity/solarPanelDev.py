@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from dev.curtDev import CurtDev
+from demkit.components.dev.curtDev import CurtDev
 
 class SolarPanelDev(CurtDev):
 	def __init__(self,  name,  host, sun):

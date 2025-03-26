@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import util.helpers
-from ctrl.devCtrl import DevCtrl
+from demkit.components.ctrl.devCtrl import DevCtrl
 from util.windowPredictor import WindowPredictor
 from util.csvReader import CsvReader
 

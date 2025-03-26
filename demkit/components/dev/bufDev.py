@@ -13,7 +13,7 @@
 # limitations under the License.
 
 
-from dev.device import Device
+from demkit.components.dev.device import Device
 
 import math
 import copy

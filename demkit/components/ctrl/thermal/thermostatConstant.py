@@ -13,7 +13,7 @@
 # limitations under the License.
 
 
-from ctrl.thermal.thermostat import Thermostat
+from demkit.components.ctrl.thermal.thermostat import Thermostat
 
 # Thermostat with constant setpoint for use in e.g. floor heating systems
 class ThermostatConstant(Thermostat):

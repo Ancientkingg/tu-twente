@@ -15,9 +15,9 @@
 
 
 from core.zCore import ZCore
-from hosts.host import Host
+from demkit.components.hosts.host import Host
 
-from usrconf import *
+from demkit.conf.usrconf import *
 
 import time
 from datetime import datetime

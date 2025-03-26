@@ -14,7 +14,7 @@
 
 
 
-from hosts.host import Host
+from demkit.components.hosts.host import Host
 
 class SimHost(Host):
 	def __init__(self, name = "host"):

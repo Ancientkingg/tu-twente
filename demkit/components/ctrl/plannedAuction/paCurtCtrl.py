@@ -14,8 +14,8 @@
 
 
 
-from ctrl.curtCtrl import CurtCtrl
-from ctrl.auction.curtAuctionCtrl import CurtAuctionCtrl
+from demkit.components.ctrl.curtCtrl import CurtCtrl
+from demkit.components.ctrl.auction.curtAuctionCtrl import CurtAuctionCtrl
 
 #Curtailable controller
 class PaCurtCtrl(CurtCtrl, CurtAuctionCtrl):

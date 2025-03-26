@@ -13,7 +13,7 @@
 # limitations under the License.
 
 
-from dev.device import Device
+from demkit.components.dev.device import Device
 
 class ThermalDevice(Device):
 	def __init__(self,  name,  host):

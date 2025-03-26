@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from ctrl.thermal.thermalBufConvCtrl import ThermalBufConvCtrl
+from demkit.components.ctrl.thermal.thermalBufConvCtrl import ThermalBufConvCtrl
 from opt.optAlg import OptAlg
 import util.helpers
 

@@ -13,7 +13,7 @@
 # limitations under the License.
 
 
-from dev.loadDev import LoadDev
+from demkit.components.dev.loadDev import LoadDev
 
 import math
 

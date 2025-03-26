@@ -15,7 +15,9 @@
    # limitations under the License.
 
 
-import sys, os, argparse, requests, time, importlib
+import sys, os, argparse, requests, time, importlib, importlib.util
+
+from demkit.conf.usrconf import demCfg
 
 sys.stderr.write("\n\n")
 sys.stderr.write("                              yd.                                                                                       ")
@@ -55,9 +57,10 @@ sys.stderr.flush()
 
 if(len(sys.argv) > 1):
 	#Load the user config
-	os.chdir(os.path.dirname(os.path.realpath(__file__)))
-	sys.path.insert(0, 'conf')
-	from usrconf import demCfg
+	# os.chdir(os.path.dirname(os.path.realpath(__file__)))
+	# sys.path.insert(0, 'conf')
+	# from demkit.conf.usrconf import demCfg
+	# from conf.usrconf import demCfg
 
 	try:
 		if demCfg['ver'] < 4:

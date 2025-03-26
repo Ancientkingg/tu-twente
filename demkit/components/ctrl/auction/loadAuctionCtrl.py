@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from ctrl.auction.demandFunction import DemandFunction
-from ctrl.auction.devAuctionCtrl import DevAuctionCtrl
+from demkit.components.ctrl.auction.demandFunction import DemandFunction
+from demkit.components.ctrl.auction.devAuctionCtrl import DevAuctionCtrl
 
 class LoadAuctionCtrl(DevAuctionCtrl):
 	def __init__(self, name, dev, parent, host):
