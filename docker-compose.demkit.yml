@@ -17,7 +17,7 @@ services:
       - "5000:5000"
     environment:
       - DEMKIT_FOLDER=example
-      - DEMKIT_MODEL=demohouse_composed
+      - DEMKIT_MODEL=demohouse
       - DEMKIT_COMPONENTS=/app/demkit/components/
       - DEMKIT_INFLUXURL=http://demkit_influxdb
       - DEMKIT_INFLUXPORT=8086

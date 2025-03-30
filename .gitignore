@@ -2,3 +2,5 @@ grafana/
 influxdb/
 
 .idea/
+
+__pycache__/
