@@ -55,6 +55,11 @@ class RestApi:
 			status: ComposerStatus = self.composer.status
 			return Response(status.value, content_type="text/plain")  # Return plaintext response
 
+		@app.route("/composer/reset", methods=["POST"])
+		def reset_sim():
+			self.composer.reset()
+			return jsonify(self.composer.sim_params)
+
 		return app
 
 	def addConfigRoutes(self):
@@ -64,11 +69,6 @@ class RestApi:
 		def check_sim():
 			if self.composer.status != ComposerStatus.INACTIVE:
 				return Response("Simulation is either loaded or active", status=503, content_type="text/plain")
-
-		@app.route("/reset", methods=["POST"])
-		def reset_sim():
-			self.composer.reset()
-			return jsonify(self.composer.sim_params)
 
 		@app.route("/config", methods=["POST"])
 		def set_config():
