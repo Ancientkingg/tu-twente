@@ -14,8 +14,8 @@
 
 
 
-from ctrl.loadCtrl import LoadCtrl
-from ctrl.auction.loadAuctionCtrl import LoadAuctionCtrl
+from demkit.components.ctrl.loadCtrl import LoadCtrl
+from demkit.components.ctrl.auction.loadAuctionCtrl import LoadAuctionCtrl
 
 # Load controller
 class PaLoadCtrl(LoadCtrl, LoadAuctionCtrl):

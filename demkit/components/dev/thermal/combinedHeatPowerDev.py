@@ -13,7 +13,7 @@
 # limitations under the License.
 
 
-from dev.thermal.thermalBufConvDev import ThermalBufConvDev
+from demkit.components.dev.thermal.thermalBufConvDev import ThermalBufConvDev
 
 #Bufferconverter device
 #Note that the buffer level is based on the secondary side, i.e. heat

@@ -13,8 +13,8 @@
 # limitations under the License.
 
 
-from dev.loadDev import LoadDev
-from dev.device import Device
+from demkit.components.dev.loadDev import LoadDev
+from demkit.components.dev.device import Device
 
 
 class CurtDev(LoadDev):

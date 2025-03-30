@@ -13,7 +13,7 @@
 # limitations under the License.
 
 
-from dev.loadDev import LoadDev
+from demkit.components.dev.loadDev import LoadDev
 
 import numpy as np
 import util.helpers
@@ -94,6 +94,7 @@ class MeterDev(LoadDev):
 		self.host.addMeter(self)
 
 	def timeTick(self, time, deltatime=0):
+		print('meter consumption', self.consumption)
 		pass
 
 	def logStats(self, time):

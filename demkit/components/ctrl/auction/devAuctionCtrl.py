@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from ctrl.auction.aggregatorCtrl import AggregatorCtrl
+from demkit.components.ctrl.auction.aggregatorCtrl import AggregatorCtrl
 
 import copy
 

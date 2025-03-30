@@ -19,7 +19,7 @@ from collections import OrderedDict
 import threading
 import copy
 
-from ctrl.optCtrl import OptCtrl
+from demkit.components.ctrl.optCtrl import OptCtrl
 from data.psData import PSData
 from util.funcReader import FuncReader
 

@@ -13,9 +13,9 @@
 # limitations under the License.
 
 
-from ctrl.devCtrl import DevCtrl
+from demkit.components.ctrl.devCtrl import DevCtrl
 from opt.optAlg import OptAlg
-from ctrl.optCtrl import OptCtrl
+from demkit.components.ctrl.optCtrl import OptCtrl
 
 import numpy as np
 import random

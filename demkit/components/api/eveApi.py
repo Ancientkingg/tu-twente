@@ -26,17 +26,11 @@ from eve import Eve
 from threading import Thread
 from flask import jsonify, request, abort, make_response, Response
 import json
+from demkit.conf.usrconf import demCfg
 
 
-import importlib
-
-
-# FIXME: We need to remove this
-from components.ctrl.auction.btsAuctionCtrl import BtsAuctionCtrl
-from components.ctrl.auction.bufAuctionCtrl import BufAuctionCtrl
-from components.ctrl.auction.bufConvAuctionCtrl import BufConvAuctionCtrl
-from components.ctrl.auction.curtAuctionCtrl import CurtAuctionCtrl
-from components.ctrl.auction.tsAuctionCtrl import TsAuctionCtrl
+from demkit.components.dev.haDev import HADev
+from demkit.components.dev.meterDev import MeterDev
 
 
 # FIXME: See if we can remove this. Security clutter that is not our main purpose for now to resolve
@@ -54,6 +48,7 @@ def _corsify_actual_response(response):
     # response.headers.add("Access-Control-Allow-Origin", "*")
     # return response
 
+
 def replace_complex(inp):
     """Replace complex numbers with strings of 
        complex number + __ in the beginning.
@@ -65,6 +60,7 @@ def replace_complex(inp):
 
     inp_clone = copy.deepcopy(inp)
     return _replace_complex(inp_clone)
+
 
 def _replace_complex(inp):
     if isinstance(inp, complex):
@@ -78,7 +74,8 @@ def _replace_complex(inp):
             inp[key] = _replace_complex(val)
         return inp
     else:
-        return inp # nothing found - better than no checks
+        return inp  # nothing found - better than no checks
+
 
 class EveApi:
     def __init__(self, host, port, address="http://localhost"):
@@ -112,6 +109,21 @@ class EveApi:
         def listentities():
             # map self.host.entities to self.host.entities.name using the map function
             return json.dumps(list(map(lambda x: x.name, self.host.entities)))
+
+        @self.app.route("/entity", methods=['POST'])
+        def addEntity():
+            data = json.loads(request.data.decode("utf-8"))
+            haEntity = data['entity_id']
+            baseURL = demCfg['coreURL']
+            dev = HADev(f"HALoad-{haEntity}", self.host, baseURL, f'entity/{haEntity}/consumption')
+            dev.startup()
+
+            for meter in self.host.meters:
+                if isinstance(meter, MeterDev):
+                    meter.addDevice(dev)
+                    break
+
+            return json.dumps({"success": True})
 
         # call a function w/o params
         @self.app.route("/call/<entity>/<function>")

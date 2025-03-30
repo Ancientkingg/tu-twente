@@ -17,7 +17,7 @@ from util.influxdbReader import InfluxDBReader
 from util.clientCsvReader import ClientCsvReader
 import util.helpers
 
-from dev.device import Device
+from demkit.components.dev.device import Device
 
 class LoadDev(Device):
 	# FIXME: Load Device could use a slight cleanup to rely on instantiated readers in the config itself instead

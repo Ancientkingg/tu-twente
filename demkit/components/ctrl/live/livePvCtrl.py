@@ -15,7 +15,7 @@
 
 import copy
 import threading
-from ctrl.loadCtrl import LoadCtrl
+from demkit.components.ctrl.loadCtrl import LoadCtrl
 from sklearn import linear_model
 
 

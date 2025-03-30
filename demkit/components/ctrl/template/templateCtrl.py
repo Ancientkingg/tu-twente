@@ -26,7 +26,7 @@
 # Check Chapter 4 from Hoogsteen - A Cyber-Physical Systems Perspective on Decentralized Energy Management
 
 import util.helpers
-from ctrl.devCtrl import DevCtrl
+from demkit.components.ctrl.devCtrl import DevCtrl
 
 import linecache
 

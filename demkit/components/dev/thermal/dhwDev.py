@@ -14,7 +14,7 @@
 
 from util.clientCsvReader import ClientCsvReader
 from util.windowPredictor import WindowPredictor
-from dev.thermal.thermalDev import ThermalDevice
+from demkit.components.dev.thermal.thermalDev import ThermalDevice
 
 class DhwDev(ThermalDevice):
 	def __init__(self,  name,  host):

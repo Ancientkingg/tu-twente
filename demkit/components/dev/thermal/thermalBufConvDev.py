@@ -13,8 +13,8 @@
 # limitations under the License.
 
 
-from dev.bufConvDev import BufConvDev
-from dev.thermal.heatSourceDev import HeatSourceDev
+from demkit.components.dev.bufConvDev import BufConvDev
+from demkit.components.dev.thermal.heatSourceDev import HeatSourceDev
 
 import math
 

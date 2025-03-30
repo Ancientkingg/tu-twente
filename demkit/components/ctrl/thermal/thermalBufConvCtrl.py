@@ -13,7 +13,7 @@
 # limitations under the License.
 
 
-from ctrl.thermal.thermalDevCtrl import ThermalDevCtrl
+from demkit.components.ctrl.thermal.thermalDevCtrl import ThermalDevCtrl
 from opt.optAlg import OptAlg
 import util.helpers
 

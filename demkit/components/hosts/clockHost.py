@@ -13,7 +13,7 @@
 # limitations under the License.
 
 
-from hosts.zhost import ZHost
+from demkit.components.hosts.zhost import ZHost
 import time as tm
 
 class ClockHost(ZHost):

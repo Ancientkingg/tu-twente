@@ -28,8 +28,8 @@ import logging
 
 from util.influxdbReader import InfluxDBReader
 
-from dev.loadDev import LoadDev
-from dev.device import Device
+from demkit.components.dev.loadDev import LoadDev
+from demkit.components.dev.device import Device
 
 class LoadDdsDev(LoadDev):
 	# FIXME: Load Device could use a slight cleanup to rely on instantiated readers in the config itself instead

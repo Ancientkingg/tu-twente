@@ -13,8 +13,8 @@
 # limitations under the License.
 
 
-from hosts.host import Host
-from api.eveApi import EveApi
+from demkit.components.hosts.host import Host
+from demkit.components.api.eveApi import EveApi
 import time as tm
 from datetime import datetime as dt
 
@@ -43,10 +43,10 @@ class RestHost(Host):
 
 		#simulate time
 		for t in range(0,  self.intervals):
-			# self.logMsg("Simulating @ "+dt.fromtimestamp(self.currentTime).strftime('%Y-%m-%d %H:%M:%S'))
+			self.logMsg("Simulating @ "+dt.fromtimestamp(self.currentTime).strftime('%Y-%m-%d %H:%M:%S'))
 			self.timeTick(self.currentTime)
 			self.currentTime = self.currentTime + self.timeBase
-			tm.sleep(0.25)
+			tm.sleep(1)
 
 		#do a soft shutdown
 		self.shutdown()

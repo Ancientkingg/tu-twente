@@ -14,7 +14,7 @@
 
 
 import numpy as np
-from ctrl.groupCtrl import GroupCtrl
+from demkit.components.ctrl.groupCtrl import GroupCtrl
 from data.psData import PSData
 
 import copy

@@ -13,7 +13,7 @@
 # limitations under the License.
 
 
-from ctrl.optCtrl import OptCtrl
+from demkit.components.ctrl.optCtrl import OptCtrl
 from util.funcReader import FuncReader
 
 import copy

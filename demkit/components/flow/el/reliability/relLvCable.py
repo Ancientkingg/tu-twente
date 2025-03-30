@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from flow.el.lvCable import LvCable
+from demkit.components.flow.el.lvCable import LvCable
 from util.csvReader import CsvReader
 
 import math

@@ -10,9 +10,9 @@ then
 	cd /app/workspace/${DEMKIT_FOLDER}
 	sh /app/workspace/${DEMKIT_FOLDER}/alpg.sh	
 	mv alpg.sh alpg_file.sh	
-	cd /app/demkit
-	python3 -u demkit.py -f ${DEMKIT_FOLDER} -m ${DEMKIT_MODEL} 
+	cd /app
+	python3 -u -m demkit.demkit -f ${DEMKIT_FOLDER} -m ${DEMKIT_MODEL}
 else
-	cd /app/demkit
-	python3 -u demkit.py -f ${DEMKIT_FOLDER} -m ${DEMKIT_MODEL} 
+	cd /app
+	python3 -u -m demkit.demkit -f ${DEMKIT_FOLDER} -m ${DEMKIT_MODEL}
 fi

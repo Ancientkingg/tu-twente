@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from flow.el.elCable import ElCable
+from demkit.components.flow.el.elCable import ElCable
 
 class DcCable(ElCable):
 	def __init__(self,  name,  flowSim, nodeFrom, nodeTo, host):

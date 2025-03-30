@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from ctrl.auction.auctioneerCtrl import AuctioneerCtrl
+from demkit.components.ctrl.auction.auctioneerCtrl import AuctioneerCtrl
 
 
 class ShAuctioneerCtrl(AuctioneerCtrl):

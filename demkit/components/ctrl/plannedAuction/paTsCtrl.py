@@ -14,8 +14,8 @@
 
 
 
-from ctrl.tsCtrl import TsCtrl
-from ctrl.auction.tsAuctionCtrl import TsAuctionCtrl
+from demkit.components.ctrl.tsCtrl import TsCtrl
+from demkit.components.ctrl.auction.tsAuctionCtrl import TsAuctionCtrl
 
 # TimeShiftable controller
 class PaTsCtrl(TsCtrl, TsAuctionCtrl):

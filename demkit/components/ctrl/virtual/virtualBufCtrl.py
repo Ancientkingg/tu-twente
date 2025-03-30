@@ -25,7 +25,7 @@ from collections import OrderedDict
 import threading
 import copy
 
-from ctrl.groupCtrl import GroupCtrl
+from demkit.components.ctrl.groupCtrl import GroupCtrl
 from data.psData import PSData
 from util.funcReader import FuncReader
 

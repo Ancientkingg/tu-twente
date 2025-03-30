@@ -13,7 +13,7 @@
 # limitations under the License.
 
 
-from ctrl.tsCtrl import TsCtrl
+from demkit.components.ctrl.tsCtrl import TsCtrl
 from opt.optAlg import OptAlg
 from data.evTypes import evTypes
 

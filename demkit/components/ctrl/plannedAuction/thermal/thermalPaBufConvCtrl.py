@@ -13,8 +13,8 @@
 # limitations under the License.
 
 
-from ctrl.thermal.thermalBufConvCtrl import ThermalBufConvCtrl
-from ctrl.auction.thermal.thermalBufConvAuctionCtrl import ThermalBufConvAuctionCtrl
+from demkit.components.ctrl.thermal.thermalBufConvCtrl import ThermalBufConvCtrl
+from demkit.components.ctrl.auction.thermal.thermalBufConvAuctionCtrl import ThermalBufConvAuctionCtrl
 
 # TimeShiftable controller
 class ThermalPaBufConvCtrl(ThermalBufConvCtrl, ThermalBufConvAuctionCtrl):

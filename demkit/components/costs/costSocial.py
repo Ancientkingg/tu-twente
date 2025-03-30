@@ -13,7 +13,7 @@
 # limitations under the License.
 
 
-from costs.costSimulator import CostSimulator
+from demkit.components.costs.costSimulator import CostSimulator
 
 # ``Social'' cost allocation: everyone receives the same share... This also serves as example code. 
 class CostSocial(CostSimulator):

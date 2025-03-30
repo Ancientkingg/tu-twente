@@ -12,69 +12,69 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from dev.loadDev import LoadDev				# Static load device model
-from dev.curtDev import CurtDev				# Also a static load, but one that van be turned off (curtailed/shed)
-from dev.btsDev import BtsDev				# BufferTimeShiftable Device, used for electric vehicles
-from dev.tsDev import TsDev					# Timeshiftable Device, used for whitegoods
-from dev.bufDev import BufDev				# Buffer device, used for storage, such as batteries
-from dev.bufConvDev import BufConvDev		# BufferConverter device, used for heatpumps with heat store
+from demkit.components.dev.loadDev import LoadDev				# Static load device model
+from demkit.components.dev.curtDev import CurtDev				# Also a static load, but one that van be turned off (curtailed/shed)
+from demkit.components.dev.btsDev import BtsDev				# BufferTimeShiftable Device, used for electric vehicles
+from demkit.components.dev.tsDev import TsDev					# Timeshiftable Device, used for whitegoods
+from demkit.components.dev.bufDev import BufDev				# Buffer device, used for storage, such as batteries
+from demkit.components.dev.bufConvDev import BufConvDev		# BufferConverter device, used for heatpumps with heat store
 
-from dev.electricity.solarPanelDev import SolarPanelDev			# Solar panel
-from dev.thermal.solarCollectorDev import SolarCollectorDev 	# solar collector
+from demkit.components.dev.electricity.solarPanelDev import SolarPanelDev			# Solar panel
+from demkit.components.dev.thermal.solarCollectorDev import SolarCollectorDev 	# solar collector
 
 # Thermal Devices
-from dev.thermal.zoneDev2R2C import ZoneDev2R2C
-from dev.thermal.zoneDev1R1C import ZoneDev1R1C
-from dev.thermal.heatSourceDev import HeatSourceDev
-from dev.thermal.thermalBufConvDev import ThermalBufConvDev
-from dev.thermal.heatPumpDev import HeatPumpDev
-from dev.thermal.combinedHeatPowerDev import CombinedHeatPowerDev
-from dev.thermal.gasBoilerDev import GasBoilerDev
-from dev.thermal.dhwDev import DhwDev
-from ctrl.thermal.thermostat import Thermostat
+from demkit.components.dev.thermal.zoneDev2R2C import ZoneDev2R2C
+from demkit.components.dev.thermal.zoneDev1R1C import ZoneDev1R1C
+from demkit.components.dev.thermal.heatSourceDev import HeatSourceDev
+from demkit.components.dev.thermal.thermalBufConvDev import ThermalBufConvDev
+from demkit.components.dev.thermal.heatPumpDev import HeatPumpDev
+from demkit.components.dev.thermal.combinedHeatPowerDev import CombinedHeatPowerDev
+from demkit.components.dev.thermal.gasBoilerDev import GasBoilerDev
+from demkit.components.dev.thermal.dhwDev import DhwDev
+from demkit.components.ctrl.thermal.thermostat import Thermostat
 
 
 # Environment
 from environment.sunEnv import SunEnv
 from environment.weatherEnv import WeatherEnv
 
-from dev.meterDev import MeterDev			# Meter device that aggregates the load of all individual devices
+from demkit.components.dev.meterDev import MeterDev			# Meter device that aggregates the load of all individual devices
 
 
 # Controllers
-from ctrl.congestionPoint import CongestionPoint	# Import a congestion point
-from ctrl.loadCtrl import LoadCtrl			# Static load controller for predictions
-from ctrl.curtCtrl import CurtCtrl			# Static Curtailable load controller for predictions
-from ctrl.btsCtrl import BtsCtrl    		# BufferTimeShiftable Controller
-from ctrl.tsCtrl import TsCtrl				# Timeshiftable controller
-from ctrl.bufCtrl import BufCtrl			# Buffer controller
-from ctrl.bufConvCtrl import BufConvCtrl 	# BufferConverter
+from demkit.components.ctrl.congestionPoint import CongestionPoint	# Import a congestion point
+from demkit.components.ctrl.loadCtrl import LoadCtrl			# Static load controller for predictions
+from demkit.components.ctrl.curtCtrl import CurtCtrl			# Static Curtailable load controller for predictions
+from demkit.components.ctrl.btsCtrl import BtsCtrl    		# BufferTimeShiftable Controller
+from demkit.components.ctrl.tsCtrl import TsCtrl				# Timeshiftable controller
+from demkit.components.ctrl.bufCtrl import BufCtrl			# Buffer controller
+from demkit.components.ctrl.bufConvCtrl import BufConvCtrl 	# BufferConverter
 
-from ctrl.groupCtrl import GroupCtrl		# Group controller to control multiple devices, implements Profile Steering
+from demkit.components.ctrl.groupCtrl import GroupCtrl		# Group controller to control multiple devices, implements Profile Steering
 
-from ctrl.thermal.thermalBufConvCtrl import ThermalBufConvCtrl
+from demkit.components.ctrl.thermal.thermalBufConvCtrl import ThermalBufConvCtrl
 
-from ctrl.auction.btsAuctionCtrl import BtsAuctionCtrl
-from ctrl.auction.tsAuctionCtrl import TsAuctionCtrl
-from ctrl.auction.bufAuctionCtrl import BufAuctionCtrl
-from ctrl.auction.bufConvAuctionCtrl import BufConvAuctionCtrl
-from ctrl.auction.loadAuctionCtrl import LoadAuctionCtrl
-from ctrl.auction.curtAuctionCtrl import CurtAuctionCtrl
-from ctrl.auction.aggregatorCtrl import AggregatorCtrl
-from ctrl.auction.auctioneerCtrl import AuctioneerCtrl
-from ctrl.auction.thermal.thermalBufConvAuctionCtrl import ThermalBufConvAuctionCtrl
+from demkit.components.ctrl.auction.btsAuctionCtrl import BtsAuctionCtrl
+from demkit.components.ctrl.auction.tsAuctionCtrl import TsAuctionCtrl
+from demkit.components.ctrl.auction.bufAuctionCtrl import BufAuctionCtrl
+from demkit.components.ctrl.auction.bufConvAuctionCtrl import BufConvAuctionCtrl
+from demkit.components.ctrl.auction.loadAuctionCtrl import LoadAuctionCtrl
+from demkit.components.ctrl.auction.curtAuctionCtrl import CurtAuctionCtrl
+from demkit.components.ctrl.auction.aggregatorCtrl import AggregatorCtrl
+from demkit.components.ctrl.auction.auctioneerCtrl import AuctioneerCtrl
+from demkit.components.ctrl.auction.thermal.thermalBufConvAuctionCtrl import ThermalBufConvAuctionCtrl
 
 # Planned Auction controllers, follows same reasoning
-from ctrl.plannedAuction.paBtsCtrl import PaBtsCtrl
-from ctrl.plannedAuction.paLoadCtrl import PaLoadCtrl
-from ctrl.plannedAuction.paCurtCtrl import PaCurtCtrl
-from ctrl.plannedAuction.paBufCtrl import PaBufCtrl
-from ctrl.plannedAuction.paBufConvCtrl import PaBufConvCtrl
-from ctrl.plannedAuction.paTsCtrl import PaTsCtrl
-from ctrl.plannedAuction.paGroupCtrl import PaGroupCtrl
-from ctrl.plannedAuction.thermal.thermalPaBufConvCtrl import ThermalPaBufConvCtrl
+from demkit.components.ctrl.plannedAuction.paBtsCtrl import PaBtsCtrl
+from demkit.components.ctrl.plannedAuction.paLoadCtrl import PaLoadCtrl
+from demkit.components.ctrl.plannedAuction.paCurtCtrl import PaCurtCtrl
+from demkit.components.ctrl.plannedAuction.paBufCtrl import PaBufCtrl
+from demkit.components.ctrl.plannedAuction.paBufConvCtrl import PaBufConvCtrl
+from demkit.components.ctrl.plannedAuction.paTsCtrl import PaTsCtrl
+from demkit.components.ctrl.plannedAuction.paGroupCtrl import PaGroupCtrl
+from demkit.components.ctrl.plannedAuction.thermal.thermalPaBufConvCtrl import ThermalPaBufConvCtrl
 
 # Import physical network
-from flow.el.lvNode import LvNode
-from flow.el.lvCable import LvCable
-from flow.el.elLoadFlow import ElLoadFlow
+from demkit.components.flow.el.lvNode import LvNode
+from demkit.components.flow.el.lvCable import LvCable
+from demkit.components.flow.el.elLoadFlow import ElLoadFlow

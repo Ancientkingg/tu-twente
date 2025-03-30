@@ -13,7 +13,7 @@
 # limitations under the License.
 
 
-from ctrl.devCtrl import DevCtrl
+from demkit.components.ctrl.devCtrl import DevCtrl
 from opt.optAlg import OptAlg
 
 import numpy as np

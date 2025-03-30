@@ -14,8 +14,8 @@
 
 
 
-from ctrl.btsCtrl import BtsCtrl
-from ctrl.auction.btsAuctionCtrl import BtsAuctionCtrl
+from demkit.components.ctrl.btsCtrl import BtsCtrl
+from demkit.components.ctrl.auction.btsAuctionCtrl import BtsAuctionCtrl
 
 #Electrical vehicle controller
 class PaBtsCtrl(BtsCtrl, BtsAuctionCtrl):

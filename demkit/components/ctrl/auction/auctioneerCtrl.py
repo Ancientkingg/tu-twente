@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from ctrl.auction.aggregatorCtrl import AggregatorCtrl
-from ctrl.auction.demandFunction import DemandFunction
+from demkit.components.ctrl.auction.aggregatorCtrl import AggregatorCtrl
+from demkit.components.ctrl.auction.demandFunction import DemandFunction
 from util.funcReader import FuncReader
 
 import math

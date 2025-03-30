@@ -13,7 +13,7 @@
 # limitations under the License.
 
 
-from flow.flowEntity import FlowEntity
+from demkit.components.flow.flowEntity import FlowEntity
 
 class Edge(FlowEntity):
     def __init__(self,  name,  flowSim, nodeFrom, nodeTo, host):

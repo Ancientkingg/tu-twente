@@ -15,7 +15,7 @@
 
 import requests
 
-from dev.loadDev import LoadDev
+from demkit.components.dev.loadDev import LoadDev
 
 class HassLoadDev(LoadDev):
 	def __init__(self,  name,  host, influx=False, reader=None):

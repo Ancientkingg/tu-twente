@@ -14,8 +14,8 @@
 
 
 
-from hosts.zhost import ZHost
-from hosts.host import Host
+from demkit.components.hosts.zhost import ZHost
+from demkit.components.hosts.host import Host
 import time as tm
 
 class MasterSimHost(ZHost):

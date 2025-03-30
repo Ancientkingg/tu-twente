@@ -15,7 +15,7 @@
 
 import requests
 import time as tm
-from usrconf import demCfg
+from demkit.conf.usrconf import demCfg
 import os
 import sys
 import threading

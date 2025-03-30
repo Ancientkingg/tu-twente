@@ -31,6 +31,8 @@ COPY demkit/tools /app/demkit/tools
 COPY demkit/demkit.py /app/demkit/
 COPY demkit/docker /app/demkit/docker
 
+RUN mv /app/demkit/conf/usrconf.docker.py /app/demkit/conf/usrconf.py
+
 RUN mkdir /app/demkit/components
 RUN mkdir /zmq
 RUN mkdir /app/workspace
@@ -48,19 +50,19 @@ WORKDIR /app/demkit/
 RUN rm -Rf docker
 
 # Set the default environment variables
-ENV DEMKIT_FOLDER example
-ENV DEMKIT_MODEL demohouse
-ENV DEMKIT_COMPONENTS /app/demkit/components/
+ENV DEMKIT_FOLDER=example
+ENV DEMKIT_MODEL=demohouse
+ENV DEMKIT_COMPONENTS=/app/demkit/components/
 
-ENV DEMKIT_INFLUXURL http://demkit_influxdb
-ENV DEMKIT_INFLUXPORT 8086
-ENV DEMKIT_INFLUXDB dem
-ENV DEMKIT_INFLUXUSER demkit
-ENV DEMKIT_INFLUXPASSWORD WZ5LE3nblOQwpWHrr3m5
-ENV DEMKIT_INFLUXTOKEN -WF-JsrugNAZbl4mZJrfT3H6GNXdtNrRWXM-yzuECUJv8XiZqdan0tGq3MFnaEzDRIodcit3Sg0Qh6UiEKZsgg==
+ENV DEMKIT_INFLUXURL=http://demkit_influxdb
+ENV DEMKIT_INFLUXPORT=8086
+ENV DEMKIT_INFLUXDB=dem
+ENV DEMKIT_INFLUXUSER=demkit
+ENV DEMKIT_INFLUXPASSWORD=WZ5LE3nblOQwpWHrr3m5
+ENV DEMKIT_INFLUXTOKEN=-WF-JsrugNAZbl4mZJrfT3H6GNXdtNrRWXM-yzuECUJv8XiZqdan0tGq3MFnaEzDRIodcit3Sg0Qh6UiEKZsgg==
 
 # Setting the python path
-ENV PYTHONPATH /usr/lib/python3.11/site-packages
+ENV PYTHONPATH=/usr/lib/python3.11/site-packages
 
 # Now setup DEMKit itself
 WORKDIR /app/demkit
@@ -69,7 +71,7 @@ WORKDIR /app/demkit
 VOLUME /app/demkit/components
 VOLUME /app/workspace
 
-ENV PATH "$PATH:/scripts"
+ENV PATH="$PATH:/scripts"
 
 EXPOSE 3001
 

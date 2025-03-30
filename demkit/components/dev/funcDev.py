@@ -16,7 +16,7 @@
 import random
 import math
 
-from dev.device import Device
+from demkit.components.dev.device import Device
 
 class FuncDev(Device):
 	def __init__(self, name, host):
@@ -25,8 +25,8 @@ class FuncDev(Device):
 
 		# params
 		self.functionType = "block"  # choose: block, sin, sawtooth, const, noise
-		self.period = 60*60
-		self.amplitude = 1000.0
+		self.period = 1
+		self.amplitude = 1.0
 		self.dutyCycle = 0.5
 		self.timeOffset = 0.0
 		self.powerOffset = 0.0
@@ -42,6 +42,8 @@ class FuncDev(Device):
 
 		self.lockState.acquire()
 		cons = self.readValue(time)
+
+		# print("tick", self.consumption)
 
 		for c in self.commodities:
 			self.consumption[c] = complex(cons, 0.0)

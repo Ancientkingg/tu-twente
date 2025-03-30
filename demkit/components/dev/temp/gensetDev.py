@@ -17,7 +17,7 @@ from util.influxdbReader import InfluxDBReader
 from util.clientCsvReader import ClientCsvReader
 import util.helpers
 
-from dev.device import Device
+from demkit.components.dev.device import Device
 
 class GensetDev(Device):
 	# GENSET Device modelling multiple gensets for the QuinteQ project

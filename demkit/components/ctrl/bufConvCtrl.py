@@ -13,7 +13,7 @@
 # limitations under the License.
 
 
-from ctrl.bufCtrl import BufCtrl
+from demkit.components.ctrl.bufCtrl import BufCtrl
 import util.helpers
 from util.windowPredictor import WindowPredictor
 
