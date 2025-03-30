@@ -3,11 +3,14 @@ from threading import Thread
 from flask import Blueprint, jsonify, request, Response
 import json
 
+from demkit.components.dev.haDev import HADev
 from util.Complex import replace_complex
 # from util.ModelRestComposer import ComposerStatus, ModelRestComposer
 from util.ComposerStatus import ComposerStatus
 from util.entities import EntityDeserializer
 from util.entities.ModelRestEntity import ModelRestEntity
+
+from demkit.conf.usrconf import demCfg
 
 
 def send_func_result(result):
@@ -122,6 +125,19 @@ class RestApi:
 
 	def addSimRoutes(self):
 		app = Blueprint(name="sim", import_name="sim")
+
+		@app.route("/entity", methods=['POST'])
+		def addEntity():
+			data = json.loads(request.data.decode("utf-8"))
+			haEntity = data['entity_id']
+			baseURL = demCfg['coreURL']
+			dev = HADev(f"HALoad-{haEntity}", self.host, baseURL, f'entity/{haEntity}/consumption')
+			dev.startup()
+
+			for meter in self.host.meters:
+				if isinstance(meter, MeterDev):
+					meter.addDevice(dev)
+					break
 
 		@app.before_request
 		def check_host():
