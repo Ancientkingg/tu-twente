@@ -87,10 +87,8 @@ class RestApi:
 				return Response(f"Error adding entity: {e}", status=400, content_type="text/plain")
 			return jsonify(entity)
 
-		@app.route("/entities", methods=["DELETE"])
-		def remove_entity():
-			data = json.loads(request.data.decode("utf-8"))
-			entity_name = data.get("name")
+		@app.route("/entities/<entity_name>", methods=["DELETE"])
+		def remove_entity(entity_name):
 			if entity_name is None:
 				return Response(status=400, content_type="text/plain")
 
