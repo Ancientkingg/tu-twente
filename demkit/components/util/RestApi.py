@@ -10,6 +10,13 @@ from util.entities import EntityDeserializer
 from util.entities.ModelRestEntity import ModelRestEntity
 
 
+def send_func_result(result):
+	if result is None:
+		return Response(status=200)
+	else:
+		print(replace_complex(result))
+		return jsonify(replace_complex(result))
+
 class RestApi:
 	def __init__(
 		self, composer, port: int, address: str = "0.0.0.0"
@@ -40,13 +47,6 @@ class RestApi:
 		from waitress import serve
 		serve(self.app, host=self.address, port=self.port)
 
-
-	def send_func_result(result):
-		if result is None:
-			return Response(status=200)
-		else:
-			return jsonify(replace_complex(result))
-
 	def addMetaRoutes(self):
 		app = Blueprint(name="meta", import_name="meta")
 
@@ -59,6 +59,11 @@ class RestApi:
 		def reset_sim():
 			self.composer.reset()
 			return jsonify(self.composer.sim_params)
+
+		@app.route("/composer/start", methods=["POST"])
+		def start_simulation():
+			self.composer.start()
+			return jsonify(True)
 
 		return app
 
@@ -85,7 +90,7 @@ class RestApi:
 			except Exception as e:
 				print(f"Error adding entity: {e}")
 				return Response(f"Error adding entity: {e}", status=400, content_type="text/plain")
-			return jsonify(entity)
+			return jsonify(True)
 
 		@app.route("/entities/<entity_name>", methods=["DELETE"])
 		def remove_entity(entity_name):
@@ -102,7 +107,7 @@ class RestApi:
 		@app.route("/entities", methods=["GET"])
 		def get_entities():
 			entities = self.composer.entities
-			return jsonify(entities)
+			return jsonify(map()(lambda x: x.name, entities))
 
 		@app.route("/load", methods=["POST"])
 		def load_entities():
@@ -111,12 +116,7 @@ class RestApi:
 			except Exception as e:
 				print(f"Error loading entities: {e}")
 				return Response(f"Error loading entities: {e}", status=500, content_type="text/plain")
-			return jsonify(self.composer.entities)
-
-		@app.route("/start", methods=["POST"])
-		def start_simulation():
-			self.composer.start()
-			return jsonify(self.composer.entities)
+			return jsonify(True)
 
 		return app
 
@@ -125,14 +125,15 @@ class RestApi:
 
 		@app.before_request
 		def check_host():
-			self.host = self.composer.host
+			self.host = self.composer.host.inner if self.composer.host is not None else None
 			if self.host is None:
 				return Response("Host is not available", status=503, content_type="text/plain")
 
 		# Get the current host time
 		@app.route("/time")
 		def get_time():
-			return Response(self.host.time(), status=200, content_type="text/plain")
+			current_time = str(self.host.time())
+			return Response(current_time, status=200, content_type="text/plain")
 
 		# List all loaded entities in host environment
 		@app.route("/list")
@@ -145,7 +146,7 @@ class RestApi:
 		def call_func(entity, function):
 			result = self.host.callFunction(entity, function)
 
-			return self.send_func_result(result)
+			return send_func_result(result)
 
 		# Call a function with parameters
 		@app.route("/callp/<entity>/<function>", methods=["PUT"])
@@ -153,7 +154,7 @@ class RestApi:
 			args = json.loads(request.data.decode("utf-8"))
 			result = self.host.callFunction(entity, function, args)
 
-			return self.send_func_result(result)
+			return send_func_result(result)
 
 		# Set a variable value
 		@app.route("/set/<entity>/<var>/<val>")

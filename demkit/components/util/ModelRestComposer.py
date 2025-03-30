@@ -1,3 +1,4 @@
+from threading import Thread
 from hosts.restHost import RestHost
 from util.RestApi import RestApi
 from util.ComposerStatus import ComposerStatus
@@ -20,12 +21,16 @@ class ModelRestComposer:
 
         self.status: ComposerStatus = ComposerStatus.INACTIVE
 
+
     def reset(self):
         self.entities = []
         self.host = None
         self.meters = None
         self.sim_params = None
         self.status = ComposerStatus.INACTIVE
+        if self.thread is not None and self.thread.is_alive():
+            self.thread.join(timeout=0)
+            print("[INF] Thread terminated.")
 
     def add(self, entity: ModelRestEntity):
         if isinstance(entity, HostEntity):
@@ -77,8 +82,9 @@ class ModelRestComposer:
             print("[WRN] No meters defined in the model!")
 
         for entity in self.entities:
-            entity.load(self.host, self.meters, self.sim_params)
+            entity.load(self.host, self.meters, self.sim_params, self.entities)
 
+        self.status = ComposerStatus.LOADED
         print("[INF] Model composition completed.")
 
     def start(self):
@@ -103,5 +109,13 @@ class ModelRestComposer:
         if self.entities is None or len(self.entities) == 0:
             print("[WRN] No entities defined in the model!")
 
+        self.status = ComposerStatus.ACTIVE
+
         self.host.inner.restApi = True
+
+        self.thread = Thread(target=self._start)
+        self.thread.start()
+
+    def _start(self):
+        print(f"Starting Simulation.")
         self.host.inner.startSimulation()

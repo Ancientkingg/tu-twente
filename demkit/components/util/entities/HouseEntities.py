@@ -30,6 +30,9 @@ class MeterEntity(ModelRestEntity):
         if not commodities or not weights:
             self.commodities = ["ELECTRICITY"]
             self.weights = {"ELECTRICITY": 1}
+        else:
+            self.commodities = commodities
+            self.weights = weights
 
     def load(
         self,
@@ -132,13 +135,20 @@ class SolarPanelEntity(ModelRestEntity):
 
 
 class TimeShiftableEntity(ModelRestEntity):
-    def __init__(self, name: str, profile: list[RustComplex] | list[complex] = None, timeBase: int = 60):
+    def __init__(
+        self,
+        name: str,
+        profile: list[RustComplex] | list[complex] = None,
+        timeBase: int = 60,
+    ):
         super().__init__(name)
 
         if profile is None:
             raise ValueError("profile cannot be None")
 
-        if all(isinstance(item, dict) and "re" in item and "im" in item for item in profile):
+        if all(
+            isinstance(item, dict) and "re" in item and "im" in item for item in profile
+        ):
             profile = [complex(item["re"], item["im"]) for item in profile]
 
         self.profile: list[complex] = profile
@@ -321,7 +331,8 @@ class ThermostatEntity(ModelRestEntity):
     ):
         super().load()
         zone = next(
-            (entity.inner for entity in entities if isinstance(entity, ZoneEntity)), None
+            (entity.inner for entity in entities if isinstance(entity, ZoneEntity)),
+            None,
         )
         if zone is None:
             raise ValueError("No zone found")
@@ -393,8 +404,7 @@ class HeatSourceEntity(ModelRestEntity):
         entities: list[ModelRestEntity],
     ):
         super().load()
-
-        heat_specs = alpg.listFromFile(params.get("heatingSettings"))
+        heat_specs = alpg.listFromFileStr(params.get("heatingSettings"))
 
         if heat_specs[-1][0] == "CONVENTIONAL":  # Gas boiler
             heatsource = GasBoilerDev(self.name, host.inner)
@@ -424,7 +434,8 @@ class HeatSourceEntity(ModelRestEntity):
         self.inner = heatsource
 
         zone = next(
-            (entity.inner for entity in entities if isinstance(entity, ZoneEntity)), None
+            (entity.inner for entity in entities if isinstance(entity, ZoneEntity)),
+            None,
         )
         if zone is None:
             raise ValueError("No zone found")
@@ -445,18 +456,18 @@ class HeatSourceEntity(ModelRestEntity):
 
         sm = next(
             (
-                entity
+                entity.inner
                 for entity in entities
-                if isinstance(entity, MeterEntity) and "HEAT" in entity.commodities
+                if isinstance(entity, MeterEntity) and "ELECTRICITY" in entity.commodities
             ),
             None,
         )
         if sm is None:
-            raise ValueError("No meter found with HEAT commodity")
+            raise ValueError("No meter found with ELECTRICITY commodity")
 
         gm = next(
             (
-                entity
+                entity.inner
                 for entity in entities
                 if isinstance(entity, MeterEntity) and "NATGAS" in entity.commodities
             ),
@@ -489,7 +500,7 @@ class HeatPumpEntity(ModelRestEntity):
     ):
         super().load()
 
-        heat_specs = alpg.listFromFile(params.get("heatingSettings"))
+        heat_specs = alpg.listFromFileStr(params.get("heatingSettings"))
         heatsource = next(
             (entity for entity in entities if isinstance(entity, HeatSourceEntity)),
             None,
@@ -517,7 +528,7 @@ class HeatPumpEntity(ModelRestEntity):
 
             sm = next(
                 (
-                    entity
+                    entity.inner
                     for entity in entities
                     if isinstance(entity, MeterEntity)
                     and "ELECTRICITY" in entity.commodities
@@ -529,14 +540,14 @@ class HeatPumpEntity(ModelRestEntity):
 
             gm = next(
                 (
-                    entity
+                    entity.inner
                     for entity in entities
-                    if isinstance(entity, MeterEntity) and "HEAT" in entity.commodities
+                    if isinstance(entity, MeterEntity) and "NATGAS" in entity.commodities
                 ),
                 None,
             )
             if gm is None:
-                raise ValueError("No meter found with HEAT commodity")
+                raise ValueError("No meter found with NATGAS commodity")
 
             sm.addDevice(dhwsrc)
             gm.addDevice(dhwsrc)
