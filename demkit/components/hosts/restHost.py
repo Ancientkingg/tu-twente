@@ -19,13 +19,14 @@ import time as tm
 from datetime import datetime as dt
 
 class RestHost(Host):
-	def __init__(self, name="host", port = 5000):
+	def __init__(self, name="host", port = 5000, restApi = None):
 		self.liveOperation = True
 		Host.__init__(self, name="host")
 
 		self.enableFlowSim = False
 		self.port = port
 		self.address = "http://localhost"
+		self.restApi = restApi
 		#FIXME: Need some mechanism to obtain the IP Address of the system, for now we hardcode default to localhost. T200
 
 
@@ -33,7 +34,8 @@ class RestHost(Host):
 	def startup(self):
 		Host.startup(self)
 
-		self.restApi = EveApi(self, self.port)
+		if self.restApi is None:
+			self.restApi = EveApi(self, self.port)
 
 	def startSimulation(self):
 		#startup all entities
