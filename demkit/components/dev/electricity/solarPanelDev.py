@@ -61,7 +61,7 @@ class SolarPanelDev(CurtDev):
 			self.size = self.panels * self.panelSize
 
 		import random
-		demo_production = random.randint(500, 1000) + random.random()
+		demo_production = 820 + random.random() * 4 if self.onOffDevice else 0
 
 		for c in self.commodities:
 			self.consumption[c] = max(self.calculateProduction(), demo_production)
