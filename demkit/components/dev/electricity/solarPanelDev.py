@@ -60,8 +60,11 @@ class SolarPanelDev(CurtDev):
 		if self.panels is not None:
 			self.size = self.panels * self.panelSize
 
+		import random
+		demo_production = random.randint(500, 1000) + random.random()
+
 		for c in self.commodities:
-			self.consumption[c] = self.calculateProduction()
+			self.consumption[c] = max(self.calculateProduction(), demo_production)
 
 		self.originalConsumption = dict(self.consumption)
 		self.lockState.release()
