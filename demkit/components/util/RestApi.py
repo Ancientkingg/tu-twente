@@ -182,7 +182,7 @@ class RestApi:
 			success = self.host.setVar(entity, var, val)
 
 			if success:
-				return Response(success, status=200, content_type="text/plain")
+				return Response(str(success), status=200, content_type="text/plain")
 			else:
 				return Response(status=500, content_type="text/plain")
 
