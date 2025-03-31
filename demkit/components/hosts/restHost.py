@@ -19,13 +19,14 @@ import time as tm
 from datetime import datetime as dt
 
 class RestHost(Host):
-	def __init__(self, name="host", port = 5000, restApi = None):
+	def __init__(self, name="host", port = 5000, restApi = None, timeDelayBase: int = 1):
 		self.liveOperation = True
 		Host.__init__(self, name="host")
 
 		self.enableFlowSim = False
 		self.port = port
 		self.address = "http://localhost"
+		self.timeDelayBase = timeDelayBase
 		self.restApi = restApi
 		#FIXME: Need some mechanism to obtain the IP Address of the system, for now we hardcode default to localhost. T200
 
@@ -46,7 +47,7 @@ class RestHost(Host):
 			self.logMsg("Simulating @ "+dt.fromtimestamp(self.currentTime).strftime('%Y-%m-%d %H:%M:%S'))
 			self.timeTick(self.currentTime)
 			self.currentTime = self.currentTime + self.timeBase
-			tm.sleep(1)
+			tm.sleep(self.timeDelayBase)
 
 		#do a soft shutdown
 		self.shutdown()
