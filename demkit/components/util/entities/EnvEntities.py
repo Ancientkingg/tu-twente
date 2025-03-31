@@ -27,6 +27,7 @@ class HostEntity(ModelRestEntity):
             raise ValueError("params cannot be None for HostEntity")
 
         self.inner.timeBase = params.get("timeBase")
+        self.inner.timeDelayBase = params.get("timeDelayBase")
         self.inner.timeOffset = params.get("timeOffset")
         self.inner.timezone = timezone(params.get("timeZone"))
         self.inner.intervals = params.get("intervals")
