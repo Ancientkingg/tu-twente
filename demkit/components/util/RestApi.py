@@ -135,10 +135,8 @@ class RestApi:
 			dev = HADev(f"HALoad-{haEntity}", self.composer.host.inner, baseURL, f'houses/0/entity/{haEntity}/consumption')
 			dev.startup()
 
-			for meter in self.composer.host.inner.meters:
-				if isinstance(meter, MeterDev):
-					meter.addDevice(dev)
-					break
+			# TODO: FIX ME:
+			self.composer.meters[0].inner.addDevice(dev)
 			
 			return json.dumps({"success": True})
 
