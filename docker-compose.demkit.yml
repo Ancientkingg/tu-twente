@@ -7,8 +7,6 @@ services:
     container_name: demkit
     image: demkit:latest
     network_mode: "host"
-    networks:
-      - demkit_network
     volumes:
       # for UNIX
       - "./workspace:/app/workspace"
