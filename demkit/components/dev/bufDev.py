@@ -349,7 +349,7 @@ class BufDev(Device):
 		r['chargingEfficiency'] = self.chargingEfficiency
 		r['discrete'] = self.discrete
 		r['useInefficiency'] = self.useInefficiency
-		r['targetSoC'] = self.targetSoC
+		r['targetSoC'] = int(self.targetSoC) if self.targetSoC is not None else None
 
 		r['restrictedCapacity'] = self.restrictedCapacity
 		r['restrictedChargingPowers'] = self.restrictedChargingPowers

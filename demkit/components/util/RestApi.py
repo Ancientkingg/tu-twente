@@ -18,7 +18,7 @@ def send_func_result(result):
 	if result is None:
 		return Response(status=200)
 	else:
-		print(replace_complex(result))
+		# print(replace_complex(result))
 		return jsonify(replace_complex(result))
 
 class RestApi:
@@ -135,10 +135,8 @@ class RestApi:
 			dev = HADev(f"HALoad-{haEntity}", self.composer.host.inner, baseURL, f'houses/0/entity/{haEntity}/consumption')
 			dev.startup()
 
-			for meter in self.composer.host.inner.meters:
-				if isinstance(meter, MeterDev):
-					meter.addDevice(dev)
-					break
+			# TODO: FIX ME:
+			self.composer.meters[0].inner.addDevice(dev)
 			
 			return json.dumps({"success": True})
 

@@ -44,8 +44,6 @@ class MeterEntity(ModelRestEntity):
         super().load()
 
         self.inner = MeterDev(self.name, host.inner, list(self.commodities))
-        meters.append(self.inner)
-
 
 class CurtEntity(ModelRestEntity):
     def __init__(
