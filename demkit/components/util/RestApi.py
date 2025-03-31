@@ -161,6 +161,7 @@ class RestApi:
 		# Call a function without parameters
 		@app.route("/call/<entity>/<function>")
 		def call_func(entity, function):
+			print(f"Call {entity}.{function}")
 			result = self.host.callFunction(entity, function)
 
 			return send_func_result(result)
@@ -168,6 +169,7 @@ class RestApi:
 		# Call a function with parameters
 		@app.route("/callp/<entity>/<function>", methods=["PUT"])
 		def call_func_params(entity, function):
+			print(f"Call {entity}.{function} with parameters")
 			args = json.loads(request.data.decode("utf-8"))
 			result = self.host.callFunction(entity, function, args)
 
