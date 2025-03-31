@@ -22,4 +22,4 @@ services:
       - DEMKIT_INFLUXURL=http://demkit_influxdb
       - DEMKIT_INFLUXPORT=8086
       - DEMKIT_INFLUXDB=dem
-      - DEMKIT_COREURL=http://host.docker.internal:8080/
+      - DEMKIT_COREURL=http://localhost:8080/
