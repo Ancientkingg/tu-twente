@@ -18,7 +18,7 @@ def send_func_result(result):
 	if result is None:
 		return Response(status=200)
 	else:
-		print(replace_complex(result))
+		# print(replace_complex(result))
 		return jsonify(replace_complex(result))
 
 class RestApi:
