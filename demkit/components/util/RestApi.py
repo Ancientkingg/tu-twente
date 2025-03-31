@@ -4,6 +4,7 @@ from flask import Blueprint, jsonify, request, Response
 import json
 
 from demkit.components.dev.haDev import HADev
+from demkit.components.dev.meterDev import MeterDev
 from util.Complex import replace_complex
 # from util.ModelRestComposer import ComposerStatus, ModelRestComposer
 from util.ComposerStatus import ComposerStatus
@@ -131,13 +132,15 @@ class RestApi:
 			data = json.loads(request.data.decode("utf-8"))
 			haEntity = data['entity_id']
 			baseURL = demCfg['coreURL']
-			dev = HADev(f"HALoad-{haEntity}", self.host, baseURL, f'entity/{haEntity}/consumption')
+			dev = HADev(f"HALoad-{haEntity}", self.composer.host.inner, baseURL, f'houses/0/entity/{haEntity}/consumption')
 			dev.startup()
 
-			for meter in self.host.meters:
+			for meter in self.composer.host.inner.meters:
 				if isinstance(meter, MeterDev):
 					meter.addDevice(dev)
 					break
+			
+			return json.dumps({"success": True})
 
 		@app.before_request
 		def check_host():
