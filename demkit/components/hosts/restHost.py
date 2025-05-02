@@ -73,17 +73,23 @@ class RestHost(Host):
 		self.shutdown()
 	
 	def pauseSim(self):
+		if not self._pause_event.is_set():
+			print('Simulation already paused')
+			return
 		print('Simulation paused')
 		self._pause_event.clear()
 	
 	def resumeSim(self):
+		if self._pause_event.is_set():
+			print('Simulation already running')
+			return
 		print('Simulation resumed')
 		self._pause_event.set()
 
-	def fastFowardSim(self, forwardTime: int):
-		self.logMsg("Fast forwarding simulation to " + dt.fromtimestamp(forwardTime).strftime('%Y-%m-%d %H:%M:%S'))
+	def setTime(self, time: int):
+		self.logMsg("Fast forwarding simulation to " + dt.fromtimestamp(time).strftime('%Y-%m-%d %H:%M:%S'))
 		self._ff_event.clear()
-		while self.intervals > 0 and self.currentTime < forwardTime:
+		while self.intervals > 0 and self.currentTime < time:
 			self.timeTick(self.currentTime)
 			self.currentTime = self.currentTime + self.timeBase
 			self.intervals -= 1

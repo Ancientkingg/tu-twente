@@ -40,8 +40,10 @@ class RestApi:
 		config_routes = self.addConfigRoutes()
 		sim_routes = self.addSimRoutes()
 		meta_routes = self.addMetaRoutes()
+		sim_control_routes = self.addSimControlRoutes()
 
 		self.app.register_blueprint(config_routes)
+		self.app.register_blueprint(sim_control_routes)
 		self.app.register_blueprint(sim_routes)
 		self.app.register_blueprint(meta_routes)
 
@@ -77,7 +79,7 @@ class RestApi:
 
 		return app
 
-	def addSimulationRoutes(self):
+	def addSimControlRoutes(self):
 		app = Blueprint(name="simulation", import_name="simulation")
 
 
@@ -93,7 +95,7 @@ class RestApi:
 
 		@app.route("/simulation/resume", methods=["POST"])
 		def resume_simulation():
-			self.composer.host.inner.pauseSim()
+			self.composer.host.inner.resumeSim()
 			return jsonify(True)
 
 		@app.route("/simulation/setTime", methods=["POST"])
@@ -106,6 +108,8 @@ class RestApi:
 
 			self.composer.host.inner.setTime(time)
 			return jsonify(True)
+
+		return app
 
 	def addConfigRoutes(self):
 		app = Blueprint(name="composer", url_prefix="/composer", import_name="composer")
