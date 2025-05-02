@@ -17,6 +17,7 @@ from demkit.components.hosts.host import Host
 from demkit.components.api.eveApi import EveApi
 import time as tm
 from datetime import datetime as dt
+import threading 
 
 class RestHost(Host):
 	def __init__(self, name="host", port = 5000, restApi = None, timeDelayBase: int = 1):
@@ -30,6 +31,12 @@ class RestHost(Host):
 		self.restApi = restApi
 		#FIXME: Need some mechanism to obtain the IP Address of the system, for now we hardcode default to localhost. T200
 
+		self._pause_event = threading.Event()
+		self._pause_event.set()
+
+		self._ff_event = threading.Event()
+		self._ff_event.set()
+		self.thread = None
 
 
 	def startup(self):
@@ -39,19 +46,49 @@ class RestHost(Host):
 			self.restApi = EveApi(self, self.port)
 
 	def startSimulation(self):
-		#startup all entities
+		self.thread = threading.Thread(target=self.startSimulationThread)
+		self.thread.start()
+
+	def startSimulationThread(self):
+		# startup all entities
 		self.startup()
 
-		#simulate time
-		for t in range(0,  self.intervals):
-			self.logMsg("Simulating @ "+dt.fromtimestamp(self.currentTime).strftime('%Y-%m-%d %H:%M:%S'))
+		# simulate time
+		# for t in range(0, self.intervals):
+		# 	self._pause_event.wait()
+		# 	self.logMsg("Simulating @ " + dt.fromtimestamp(self.currentTime).strftime('%Y-%m-%d %H:%M:%S'))
+		# 	self.timeTick(self.currentTime)
+		# 	self.currentTime = self.currentTime + self.timeBase
+		# 	tm.sleep(self.timeDelayBase)
+		while self.intervals > 0:
+			self._pause_event.wait()
+			self._ff_event.wait()
+			self.logMsg("Simulating @ " + dt.fromtimestamp(self.currentTime).strftime('%Y-%m-%d %H:%M:%S'))
 			self.timeTick(self.currentTime)
 			self.currentTime = self.currentTime + self.timeBase
 			tm.sleep(self.timeDelayBase)
+			self.intervals -= 1
 
-		#do a soft shutdown
+		# do a soft shutdown
 		self.shutdown()
+	
+	def pauseSim(self):
+		print('Simulation paused')
+		self._pause_event.clear()
+	
+	def resumeSim(self):
+		print('Simulation resumed')
+		self._pause_event.set()
 
+	def fastFowardSim(self, forwardTime: int):
+		self.logMsg("Fast forwarding simulation to " + dt.fromtimestamp(forwardTime).strftime('%Y-%m-%d %H:%M:%S'))
+		self._ff_event.clear()
+		while self.intervals > 0 and self.currentTime < forwardTime:
+			self.timeTick(self.currentTime)
+			self.currentTime = self.currentTime + self.timeBase
+			self.intervals -= 1
+		self._ff_event.set()
+		
 	def timeTick(self, time, absolute = True):
 		self.executeCmdQueue()
 		if not self.pause:
