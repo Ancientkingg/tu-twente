@@ -20,7 +20,8 @@ RUN apt-get update && apt-get -y install git libzmq3-dev
 
 WORKDIR /app/demkit
 COPY demkit/requirements.txt . 
-RUN pip install -r requirements.txt
+RUN pip install uv
+RUN uv pip install -r requirements.txt --system
 
 WORKDIR /app/demkit
 
@@ -60,9 +61,6 @@ ENV DEMKIT_INFLUXDB=dem
 ENV DEMKIT_INFLUXUSER=demkit
 ENV DEMKIT_INFLUXPASSWORD=WZ5LE3nblOQwpWHrr3m5
 ENV DEMKIT_INFLUXTOKEN=-WF-JsrugNAZbl4mZJrfT3H6GNXdtNrRWXM-yzuECUJv8XiZqdan0tGq3MFnaEzDRIodcit3Sg0Qh6UiEKZsgg==
-
-# Setting the python path
-ENV PYTHONPATH=/usr/lib/python3.11/site-packages
 
 # Now setup DEMKit itself
 WORKDIR /app/demkit

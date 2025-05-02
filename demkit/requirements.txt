@@ -19,3 +19,4 @@ waitress
 pymysql
 joblib
 openpyxl
+dotenv

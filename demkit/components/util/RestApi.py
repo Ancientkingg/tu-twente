@@ -5,13 +5,18 @@ import json
 
 from demkit.components.dev.haDev import HADev
 from demkit.components.dev.meterDev import MeterDev
+from demkit.components.hosts.restHost import RestHost
 from util.Complex import replace_complex
-# from util.ModelRestComposer import ComposerStatus, ModelRestComposer
 from util.ComposerStatus import ComposerStatus
 from util.entities import EntityDeserializer
 from util.entities.ModelRestEntity import ModelRestEntity
 
 from demkit.conf.usrconf import demCfg
+
+
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from util.ModelRestComposer import ModelRestComposer
 
 
 def send_func_result(result):
@@ -23,19 +28,22 @@ def send_func_result(result):
 
 class RestApi:
 	def __init__(
-		self, composer, port: int, address: str = "0.0.0.0"
+		self, composer: 'ModelRestComposer', port: int, address: str = "0.0.0.0"
 	):
 		self.composer = composer
 		self.port = port
 		self.address = address
+		self.host: RestHost = None
 
 		settings = {"X_DOMAINS": "*", "DOMAIN": {"": {}}}
 		self.app = Eve(settings=settings)
 		config_routes = self.addConfigRoutes()
 		sim_routes = self.addSimRoutes()
 		meta_routes = self.addMetaRoutes()
+		sim_control_routes = self.addSimControlRoutes()
 
 		self.app.register_blueprint(config_routes)
+		self.app.register_blueprint(sim_control_routes)
 		self.app.register_blueprint(sim_routes)
 		self.app.register_blueprint(meta_routes)
 
@@ -67,6 +75,38 @@ class RestApi:
 		@app.route("/composer/start", methods=["POST"])
 		def start_simulation():
 			self.composer.start()
+			return jsonify(True)
+
+		return app
+
+	def addSimControlRoutes(self):
+		app = Blueprint(name="simulation", import_name="simulation")
+
+
+		@app.before_request
+		def check_sim():
+			if self.composer.status != ComposerStatus.ACTIVE:
+				return Response("Simulation is not running", status=503, content_type="text/plain")
+
+		@app.route("/simulation/pause", methods=["POST"])
+		def stop_simulation():
+			self.composer.host.inner.pauseSim()
+			return jsonify(True)
+
+		@app.route("/simulation/resume", methods=["POST"])
+		def resume_simulation():
+			self.composer.host.inner.resumeSim()
+			return jsonify(True)
+
+		@app.route("/simulation/setTime", methods=["POST"])
+		def set_time():
+			data = json.loads(request.data.decode("utf-8"))
+			time = data["time"]
+
+			if self.composer.host.inner.currentTime > time:
+				return Response("Time cannot be set to the past", status=400, content_type="text/plain")
+
+			self.composer.host.inner.setTime(time)
 			return jsonify(True)
 
 		return app
