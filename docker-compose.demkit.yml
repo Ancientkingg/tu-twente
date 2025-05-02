@@ -1,12 +1,13 @@
 networks:
-  demkit_network:
+  hems_network:
     external: true
 
 services:
   demkit:
     container_name: demkit
     image: demkit:latest
-    network_mode: "host"
+    networks:
+      - hems_network
     volumes:
       # for UNIX
       - "./workspace:/app/workspace"
@@ -21,4 +22,4 @@ services:
       - DEMKIT_INFLUXURL=http://demkit_influxdb
       - DEMKIT_INFLUXPORT=8086
       - DEMKIT_INFLUXDB=dem
-      - DEMKIT_COREURL=http://localhost:8080/
+      - DEMKIT_COREURL=http://hems-core:8080/
